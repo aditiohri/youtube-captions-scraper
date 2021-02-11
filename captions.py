@@ -24,12 +24,16 @@ def get_transcript(video_id):
         msg = 'error retrieving transcript'
         return msg
 
-    # write transcript file
-    file = open(writefilename, "w")
+    # create dictionary from transcript 
+    data = {}
+    data["transcript"] = []
     for element in transcript:
-        file.write(element['text'])
-    file.close()
+        data["transcript"].append(element)
 
+    # write transcript file
+    with open(writefilename, "w") as outfile:
+        json.dump(data, outfile)
+   
     return 'success'
 
 # create log file
