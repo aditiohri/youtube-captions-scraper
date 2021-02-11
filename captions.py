@@ -3,17 +3,34 @@ colname = 'videoId'					# column storing video ids
 delimiter = '\t'                    # delimiter, e.g. ',' for CSV or '\t' for TAB
 
 import csv
+import os.path
+from youtube_transcript_api import YouTubeTranscriptApi
 
-# read csv to get video id
-# call get transcript with video id
-# call log_actions to prepare log file
-
+# get transcript data and write transcript file
 def get_transcript(video_id):
-    return video_id
 
-# prepare log file
+    # check if transcript file already exists
+    writefilename = 'subtitles/transcript_' + video_id + '.txt'
+    if os.path.isfile(writefilename):
+        msg = 'transcript file already exists'
+        return msg
+    
+    # retrieve video transcript
+    try:
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
+    except: 
+        msg = 'error retrieving transcript'
+        return msg
 
-# log function
+    # write transcript file
+    file = open(writefilename, "w")
+    for element in transcript:
+        file.write(element['text'])
+    file.close()
+
+    return 'success'
+
+# write log file
 def log_actions(id, msg):
     logwrite = open('captions.log','w',newline='\n')
     logwriter = csv.DictWriter(logwrite, fieldnames=['id','msg'])
