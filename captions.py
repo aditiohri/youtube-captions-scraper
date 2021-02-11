@@ -4,6 +4,8 @@ delimiter = '\t'                    # delimiter, e.g. ',' for CSV or '\t' for TA
 
 import csv
 import os.path
+import json
+
 from youtube_transcript_api import YouTubeTranscriptApi
 
 # get transcript data and write transcript file
@@ -30,11 +32,13 @@ def get_transcript(video_id):
 
     return 'success'
 
+# create log file
+logwrite = open('captions.log','w',newline='\n')
+logwriter = csv.DictWriter(logwrite, fieldnames=['id','msg'])
+logwriter.writeheader()
+
 # write log file
 def log_actions(id, msg):
-    logwrite = open('captions.log','w',newline='\n')
-    logwriter = csv.DictWriter(logwrite, fieldnames=['id','msg'])
-    logwriter.writeheader()
     logwriter.writerow({'id':id,'msg':msg})
 
 # read CSV file
