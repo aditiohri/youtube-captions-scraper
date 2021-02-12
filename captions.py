@@ -1,5 +1,5 @@
-filename = 'videolist.csv'			# filname with video ids
-colname = 'videoId'					# column storing video ids
+filename = 'videolist.csv'			# filename with video ids
+colname = 'video_id'				# column storing video ids
 delimiter = '\t'                    # delimiter, e.g. ',' for CSV or '\t' for TAB
 
 import csv
