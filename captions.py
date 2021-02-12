@@ -12,7 +12,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 def get_transcript(video_id):
 
     # check if transcript file already exists
-    writefilename = 'subtitles/transcript_' + video_id + '.txt'
+    writefilename = 'subtitles/transcript_' + video_id + '.json'
     if os.path.isfile(writefilename):
         msg = 'transcript file already exists'
         return msg
